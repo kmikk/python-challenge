@@ -9,31 +9,38 @@ bank_data = os.path.join("Resources", "budget_data.csv")
 # composed of two columns: `Date` and `Profit/Losses`. (Thankfully, your company 
 # has rather lax standards for accounting so the records are simple.)
 
-month = []
+#   Define output function
+def analysis():
+    print("Financial Analysis \n----------------------------")
+    print("Total Months: " + str(num_of_months))
+    print("Total: $" + str(net_total))
+    print("Average Change: $" + str(average))
+    print("Greatest Increase in Profits: " + str(maxmonth) + " $" + str(maxpandl))
+    print("Greatest Decrease in Profits: " + str(minmonth) + " $" + str(minpandl))
+
+
+
+#   Define needed lists
 pandl = []
+month = []
+plchange = []   
 
 
-
-
+#   Open and read file, skipping header row
 with open(bank_data) as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=",")
-    print(csvreader)
-    csv_header = next(csvreader)
-#    print(f"CSV Header: {csv_header}")
     
+    csvreader = csv.reader(csvfile, delimiter=",")
+    csv_header = next(csvreader)
+    
+#   Find needed data in file
     for row in csvreader:
         month.append(row[0])
-        pandl.append(row[1])
-        max_increase = max(pandl)
-        max_decrease = min(pandl)
-        
-        if int(row[1]) == max_increase:
-            print(row)
+        pandl.append(float(row[1]))
 
 
 # Your task is to create a Python script that analyzes the records to calculate
 # each of the following:
-pandl = [int(i) for i in pandl]
+
 
   # The total number of months included in the dataset
 num_of_months = len(month)
@@ -42,32 +49,25 @@ num_of_months = len(month)
 net_total = sum(pandl)
 
   # The average of the changes in "Profit/Losses" over the entire period
-from statistics import mean
-average = mean(pandl)
-
+for i in range(1,len(pandl)):
+    plchange.append(pandl[i] - pandl[i-1])
+    average = round((sum(plchange)/len(plchange)),2)
 
   # The greatest increase in profits (date and amount) over the entire period
-
-
+    maxpandl = max(plchange)
+    maxmonth = str(month[plchange.index(max(plchange))])
 
   # The greatest decrease in losses (date and amount) over the entire period
-
-  
-  
-  # Lists to store data
+    minpandl = min(plchange)
+    minmonth = str(month[plchange.index(min(plchange))])
 
 
+#   Print Results
+analysis()
 
 
+#   Export to txt file
 
-
-
-
-
-# Final Print Out
-print("Financial Analysis \n----------------------------")
-print("Total Months: " + str(num_of_months))
-print("Total: $" + str(net_total))
-print("Average Change: $" + str(average))
-#print("Greatest Increase in Profits: " + str(greatest_increase"))
-print("Greatest Decrease in Profits: " + str(greatest_decrease))
+export = open('analysis.txt', 'w')
+export.write("Financial Analysis \n----------------------------\nTotal Months: " + str(num_of_months) + "\nTotal: $" + str(net_total) + "\nAverage Change: $" + str(average) + "\nGreatest Increase in Profits: " + str(maxmonth) + " $" + str(maxpandl) + "\nGreatest Decrease in Profits: " + str(minmonth) + " $" + str(minpandl))
+export.close()
