@@ -60,7 +60,7 @@ election_results = "Election Results\n-------------------------\nTotal Votes: " 
 print(election_results)
 
 
-export = open('election_results.txt', 'w')
+export = open('kmikk-election_results.txt', 'w')
 export.write(election_results)
 export.close()
 

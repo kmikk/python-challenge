@@ -61,6 +61,6 @@ print(analysis)
 
 #   Export to txt file
 
-export = open('analysis.txt', 'w')
+export = open('kmikk-analysis.txt', 'w')
 export.write(analysis)
 export.close()
