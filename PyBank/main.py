@@ -9,15 +9,6 @@ bank_data = os.path.join("Resources", "budget_data.csv")
 # composed of two columns: `Date` and `Profit/Losses`. (Thankfully, your company 
 # has rather lax standards for accounting so the records are simple.)
 
-#   Define output function
-def analysis():
-    print("Financial Analysis \n----------------------------")
-    print("Total Months: " + str(num_of_months))
-    print("Total: $" + str(net_total))
-    print("Average Change: $" + str(average))
-    print("Greatest Increase in Profits: " + str(maxmonth) + " $" + str(maxpandl))
-    print("Greatest Decrease in Profits: " + str(minmonth) + " $" + str(minpandl))
-
 
 
 #   Define needed lists
@@ -63,11 +54,13 @@ for i in range(1,len(pandl)):
 
 
 #   Print Results
-analysis()
+analysis = "Financial Analysis \n----------------------------\nTotal Months: " + str(num_of_months) + "\nTotal: $" + str(net_total) + "\nAverage Change: $" + str(average) + "\nGreatest Increase in Profits: " + str(maxmonth) + " $" + str(maxpandl) + "\nGreatest Decrease in Profits: " + str(minmonth) + " $" + str(minpandl)
+
+print(analysis)
 
 
 #   Export to txt file
 
 export = open('analysis.txt', 'w')
-export.write("Financial Analysis \n----------------------------\nTotal Months: " + str(num_of_months) + "\nTotal: $" + str(net_total) + "\nAverage Change: $" + str(average) + "\nGreatest Increase in Profits: " + str(maxmonth) + " $" + str(maxpandl) + "\nGreatest Decrease in Profits: " + str(minmonth) + " $" + str(minpandl))
+export.write(analysis)
 export.close()
